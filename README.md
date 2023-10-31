@@ -38,6 +38,20 @@ For development, the command \`npm run dev\` will start the Vite server.
 - **Preview**: ```npm run preview```  
   Preview the production build locally.
 
+## Importing Assets
+
+To import from the `public` folder, use the following syntax:
+
+```tsx
+import viteLogo from '/vite.svg'
+```
+
+And to import from the `src` folder, in this case from the `assets` folder inside `src`, use the following syntax:
+
+```tsx
+import reactLogo from './assets/react.svg'
+```
+
 ## Features
 - [React](https://reactjs.org/) as the UI library
 - [react-three-fiber](https://github.com/pmndrs/react-three-fiber/) as the 3D library
