@@ -8,26 +8,20 @@ function DraggableBox() {
   const [isDragging, setIsDragging] = useState(false)
   const { controllers } = useXR()
 
-  useXREvent('squeezestart', () => {
-    setIsDragging(true)
-  })
+  useXREvent('squeezestart', () => setIsDragging(true))
 
-  useXREvent('squeezeend', () => {
-    setIsDragging(false)
-  })
+  useXREvent('squeezeend', () => setIsDragging(false))
 
   useFrame(() => {
-    if (isDragging && controllers.length > 0) {
-      const controller = controllers[0]
-      if (ref.current) {
-        ref.current.position.copy(controller.grip.position)
-        ref.current.rotation.copy(controller.grip.rotation)
-      }
-    }
+    if (!isDragging || controllers.length < 1 || !ref.current) return
+
+    const controller = controllers[0]
+    ref.current.position.copy(controller.grip.position)
+    ref.current.rotation.copy(controller.grip.rotation)
   })
 
   return (
-    <mesh ref={ref} position={[-1, 1, -5]}>
+    <mesh ref={ref} position={[-1, 1, -5]} scale={isDragging ? 1.2 : 1}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={'blue'} />
     </mesh>
